@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Enviroment Tribal"
+config/name="Daybreak"
 run/main_scene="res://Enviroment/Enviroment.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
