@@ -1,6 +1,9 @@
 extends Control
 class_name menu
 
+func _ready():
+	$Menu/Play.grab_focus()
+
 func _on_quit_button_down():
 	SceneManager.QuitGame()
 
