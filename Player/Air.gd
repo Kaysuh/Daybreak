@@ -10,6 +10,9 @@ func state_process(_delta):
 		playback.travel("Move")
 		next_state = ground_state
 
+func on_enter():
+	can_move = false
+
 #func state_input(event : InputEvent):
 	#if(event.is_action_pressed("jump")):
 		#dash()
