@@ -54,6 +54,7 @@ theme_override_constants/separation = 100
 [node name="Play" type="TextureButton" parent="Menu"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Settings")
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("4_ns8ui")
 texture_hover = ExtResource("5_hr6jx")
 texture_focused = ExtResource("6_3desl")
@@ -62,6 +63,7 @@ texture_focused = ExtResource("6_3desl")
 layout_mode = 2
 focus_neighbor_top = NodePath("../Play")
 focus_neighbor_bottom = NodePath("../Quit")
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("6_sb0he")
 texture_hover = ExtResource("7_4rqc5")
 texture_focused = ExtResource("6_3desl")
@@ -69,6 +71,7 @@ texture_focused = ExtResource("6_3desl")
 [node name="Quit" type="TextureButton" parent="Menu"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Settings")
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_cfnkf")
 texture_hover = ExtResource("9_fomy0")
 texture_focused = ExtResource("6_3desl")

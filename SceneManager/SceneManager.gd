@@ -17,6 +17,7 @@ func RemoveScene(sceneName : String) -> void:
 
 func SwitchScene(sceneName : String) -> void:
 	get_tree().change_scene_to_file(Scenes[sceneName])
+	Current_scene = sceneName
  
 func RestartScene() -> void:
 	get_tree().reload_current_scene()

@@ -21,13 +21,13 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	yaw_rotation += Input.get_action_raw_strength("camera_left") - Input.get_action_raw_strength("camera_right")
-	pitch_rotation += Input.get_action_raw_strength("camera_up") - Input.get_action_raw_strength("camera_down")
-	
-	arm.rotation.y += yaw_rotation * delta
-	arm.rotation.y = wrapf(arm.rotation.y, deg_to_rad(0), deg_to_rad(360))
-	arm.rotation.x += pitch_rotation * delta
-	arm.rotation.x = clamp(arm.rotation.x, lower_tilt_limit, upper_tilt_limit)
-	
-	yaw_rotation = 0
-	pitch_rotation = 0
+		yaw_rotation += Input.get_action_raw_strength("ui_left") - Input.get_action_raw_strength("ui_right")
+		pitch_rotation += Input.get_action_raw_strength("ui_up") - Input.get_action_raw_strength("ui_down")
+
+		arm.rotation.y += yaw_rotation * delta
+		arm.rotation.y = wrapf(arm.rotation.y, deg_to_rad(0), deg_to_rad(360))
+		arm.rotation.x += pitch_rotation * delta
+		arm.rotation.x = clamp(arm.rotation.x, lower_tilt_limit, upper_tilt_limit)
+
+		yaw_rotation = 0
+		pitch_rotation = 0

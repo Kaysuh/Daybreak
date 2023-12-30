@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://b2pidvf1nxijc"]
+
+[ext_resource type="Texture2D" uid="uid://c1qiw6dy3fifc" path="res://Ui/GameMenuDetails.png" id="1_0g6pa"]
+[ext_resource type="Script" path="res://Ui/pause_menu.gd" id="1_sfjpv"]
+[ext_resource type="Texture2D" uid="uid://bcuwqukhgt861" path="res://Ui/Continue.png" id="2_2mgej"]
+[ext_resource type="Shader" path="res://Ui/pause_menu.gdshader" id="2_8grqv"]
+[ext_resource type="Texture2D" uid="uid://b0qnujxgqq3yw" path="res://Ui/SettingsPause.png" id="3_om7ci"]
+[ext_resource type="Texture2D" uid="uid://bdny8u8qxiqcg" path="res://Ui/Focused.png" id="4_7d7o3"]
+[ext_resource type="Texture2D" uid="uid://ef8cyl7ww6p8" path="res://Ui/QuitPause.png" id="4_noab8"]
+[ext_resource type="Texture2D" uid="uid://rf2adhjcl4hr" path="res://Ui/ContinueHover.png" id="4_td5uy"]
+[ext_resource type="Texture2D" uid="uid://cdal8o1tgllu0" path="res://Ui/SettingsPauseHover.png" id="7_47kld"]
+[ext_resource type="Texture2D" uid="uid://dg4efgq2g71ug" path="res://Ui/QuitPauseHover.png" id="9_gbmw5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovq5d"]
+shader = ExtResource("2_8grqv")
+shader_parameter/amount = 1.0
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sfjpv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ovq5d")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Details" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 115.0
+offset_right = 1292.0
+offset_bottom = 894.0
+scale = Vector2(1.19445, 1.19445)
+texture = ExtResource("1_0g6pa")
+
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 563.0
+offset_top = 358.0
+offset_right = 1375.0
+offset_bottom = 777.0
+theme_override_constants/separation = 100
+
+[node name="Continue" type="TextureButton" parent="PauseMenu"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Settings")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_2mgej")
+texture_hover = ExtResource("4_td5uy")
+texture_focused = ExtResource("4_7d7o3")
+
+[node name="Settings" type="TextureButton" parent="PauseMenu"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Continue")
+focus_neighbor_bottom = NodePath("../Quit to menu")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_om7ci")
+texture_hover = ExtResource("7_47kld")
+texture_focused = ExtResource("4_7d7o3")
+
+[node name="Quit to menu" type="TextureButton" parent="PauseMenu"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Settings")
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_noab8")
+texture_hover = ExtResource("9_gbmw5")
+texture_focused = ExtResource("4_7d7o3")
+
+[connection signal="pressed" from="PauseMenu/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="PauseMenu/Quit to menu" to="." method="_on_quit_to_menu_pressed"]

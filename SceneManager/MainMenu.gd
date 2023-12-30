@@ -2,7 +2,8 @@ extends Control
 class_name menu
 
 func _ready():
-	$Menu/Play.grab_focus()
+	if Input.get_connected_joypads().size() > 0:
+		$Menu/Play.grab_focus()
 
 func _on_quit_button_down():
 	SceneManager.QuitGame()
