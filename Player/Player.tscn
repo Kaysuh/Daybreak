@@ -1,6 +1,7 @@
-[gd_scene load_steps=33 format=3 uid="uid://b7k0hcc24467d"]
+[gd_scene load_steps=34 format=3 uid="uid://b7k0hcc24467d"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_erlqp"]
+[ext_resource type="Script" path="res://Player/CameraController.gd" id="6_bkee0"]
 [ext_resource type="Script" path="res://Player/CharacterStateMachine.gd" id="6_l84c8"]
 [ext_resource type="Script" path="res://Player/Ground.gd" id="7_402ur"]
 [ext_resource type="Script" path="res://Player/Air.gd" id="8_qoc35"]
@@ -3642,13 +3643,6 @@ libraries = {
 "": SubResource("AnimationLibrary_f5c67")
 }
 
-[node name="CameraPivot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.907587, 0.419864, 0, -0.419864, 0.907587, 0, 2.1902, 2.81577)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, -9.9476e-14, 3.55271e-14, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 0)
-size = 19.0
-
 [node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "current_state")]
 script = ExtResource("6_l84c8")
 character = NodePath("..")
@@ -3680,3 +3674,13 @@ transform = Transform3D(1, 0, 0, -3.55271e-15, 1, 2.98023e-08, 7.10543e-15, -2.9
 text = "Ground"
 script = ExtResource("9_fvye3")
 state_machine = NodePath("../CharacterStateMachine")
+
+[node name="CameraController" type="Node3D" parent="."]
+script = ExtResource("6_bkee0")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraController"]
+transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, 0, 1, 0)
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraController/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
