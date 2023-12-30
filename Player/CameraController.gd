@@ -1,6 +1,7 @@
 extends Node3D
 
 @export var mouse_sensitivity := .1
+@export var gamepad_sensitivity := 2
 @export var upper_tilt_limit := deg_to_rad(45)
 @export var lower_tilt_limit := deg_to_rad(-60)
 
@@ -21,8 +22,8 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-		yaw_rotation += Input.get_action_raw_strength("ui_left") - Input.get_action_raw_strength("ui_right")
-		pitch_rotation += Input.get_action_raw_strength("ui_up") - Input.get_action_raw_strength("ui_down")
+		yaw_rotation += (Input.get_action_raw_strength("ui_left") - Input.get_action_raw_strength("ui_right")) * gamepad_sensitivity
+		pitch_rotation += (Input.get_action_raw_strength("ui_up") - Input.get_action_raw_strength("ui_down")) * gamepad_sensitivity
 
 		arm.rotation.y += yaw_rotation * delta
 		arm.rotation.y = wrapf(arm.rotation.y, deg_to_rad(0), deg_to_rad(360))

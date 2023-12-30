@@ -4,7 +4,7 @@ class_name CharacterStateMachine
 @export var character : CharacterBody3D
 @export var animation_tree : AnimationTree
 @export var current_state : State
-@export var last_direction : Vector2
+@export var last_direction : Vector3
 
 var states : Array[State]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://by3nml3e6kfks"]
+[gd_scene load_steps=12 format=3 uid="uid://by3nml3e6kfks"]
 
 [ext_resource type="Script" path="res://SceneManager/MainMenu.gd" id="1_w1yfo"]
 [ext_resource type="Texture2D" uid="uid://bgswd8ql2ryak" path="res://Ui/Background.png" id="2_yu21p"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dwtpdbkaee8ob" path="res://Ui/SettingsHover.png" id="7_4rqc5"]
 [ext_resource type="Texture2D" uid="uid://dhbuic2d7miqb" path="res://Ui/Quit.png" id="8_cfnkf"]
 [ext_resource type="Texture2D" uid="uid://dth1fb4j2wde4" path="res://Ui/QuitHover.png" id="9_fomy0"]
+[ext_resource type="Texture2D" uid="uid://o7x4u6876o3m" path="res://Ui/Start.png" id="11_mhvlb"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -28,11 +29,10 @@ texture = ExtResource("2_yu21p")
 
 [node name="Title" type="TextureRect" parent="."]
 layout_mode = 2
-offset_left = 20.0
-offset_top = 15.0
-offset_right = 1940.0
-offset_bottom = 1095.0
-scale = Vector2(0.915479, 0.841235)
+offset_top = -60.0
+offset_right = 1920.0
+offset_bottom = 1020.0
+scale = Vector2(0.541108, 0.497225)
 texture = ExtResource("3_m7v4b")
 
 [node name="Version" type="TextureRect" parent="."]
@@ -75,6 +75,13 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_cfnkf")
 texture_hover = ExtResource("9_fomy0")
 texture_focused = ExtResource("6_3desl")
+
+[node name="Start" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("11_mhvlb")
 
 [connection signal="button_down" from="Menu/Play" to="." method="_on_play_button_down"]
 [connection signal="button_down" from="Menu/Quit" to="." method="_on_quit_button_down"]

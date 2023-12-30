@@ -7,12 +7,13 @@ extends CharacterBody3D
 @export var acceleration : int = 5
 @export var friction : int = 5
 @export var air_friction : int = 5
+@onready var dash_timer = $DashTimer
 
 func _ready():
 	animation_tree.active = true
 
 func _physics_process(delta):
-	if not is_on_floor(): 
+	if not is_on_floor() and dash_timer.is_stopped(): 
 		velocity.y = velocity.y - (fall_acceleration * delta)
 		#velocity.x = move_toward(velocity.x, 0, air_friction * delta)
 		#velocity.z = move_toward(velocity.x, 0, air_friction * delta)
@@ -31,8 +32,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 	update_animation(input_dir)
-	character_state_machine.last_direction = input_dir
-	#print(character_state_machine.last_direction)
+	if direction: character_state_machine.last_direction = direction
 
 func update_animation(input_dir):
 	animation_tree.set("parameters/Move/blend_position", input_dir.length())
