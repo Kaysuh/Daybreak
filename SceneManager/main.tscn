@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://byco27oibj3t3"]
+[gd_scene load_steps=8 format=3 uid="uid://byco27oibj3t3"]
 
 [ext_resource type="PackedScene" uid="uid://8mgoysoibj55" path="res://Enviroment/enviroment.tscn" id="1_fvoio"]
 [ext_resource type="Script" path="res://SceneManager/main.gd" id="1_qsoqs"]
 [ext_resource type="PackedScene" uid="uid://b7k0hcc24467d" path="res://Player/Player.tscn" id="2_0iisd"]
 [ext_resource type="PackedScene" uid="uid://b2pidvf1nxijc" path="res://Ui/pause_menu.tscn" id="4_dmw0n"]
 [ext_resource type="PackedScene" uid="uid://bhep23ns845ta" path="res://Ui/boons.tscn" id="5_piynp"]
+[ext_resource type="AudioStream" uid="uid://bru16d1xjt4bx" path="res://Audio/ES_Wind Drone Desert.wav" id="6_twur0"]
+[ext_resource type="AudioStream" uid="uid://cj5gyypx6migt" path="res://Audio/ES_Desert Dream - Taomito.wav" id="7_0ysjp"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_qsoqs")
@@ -15,7 +17,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
 [node name="Player" parent="." instance=ExtResource("2_0iisd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.888003, 3.8601, -100.9)
 floor_stop_on_slope = false
-acceleration = 10
+acceleration = 20
 friction = 10
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_dmw0n")]
@@ -33,6 +35,18 @@ visible = false
 
 [node name="TextureButton" parent="Boons/SunBoon" index="0"]
 visible = false
+
+[node name="DesertWind" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.986432, 0, -0.16417, 0, 1, 0, 0.16417, 0, -0.986432, -46.8805, 50.6725, 33.0267)
+stream = ExtResource("6_twur0")
+volume_db = -10.0
+unit_size = 20.0
+autoplay = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_0ysjp")
+volume_db = -25.0
+autoplay = true
 
 [editable path="PauseMenu"]
 [editable path="Boons"]

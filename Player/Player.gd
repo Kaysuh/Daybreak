@@ -21,7 +21,11 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	direction = direction.rotated(Vector3.UP, $CameraController/SpringArm3D.rotation.y)
-
+	if input_dir:
+		if !$Footsteps.playing:
+			$Footsteps.play()
+		
+		
 	if character_state_machine.can_move():
 		var vel_y = velocity.y
 		velocity = velocity.lerp(direction * max_speed, acceleration * delta)

@@ -1,11 +1,17 @@
-[gd_scene load_steps=34 format=3 uid="uid://b7k0hcc24467d"]
+[gd_scene load_steps=46 format=3 uid="uid://b7k0hcc24467d"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_erlqp"]
 [ext_resource type="Script" path="res://Player/CameraController.gd" id="6_bkee0"]
 [ext_resource type="Script" path="res://Player/CharacterStateMachine.gd" id="6_l84c8"]
 [ext_resource type="Script" path="res://Player/Ground.gd" id="7_402ur"]
+[ext_resource type="Shader" path="res://Player/DashEffect.gdshader" id="7_ifn5d"]
+[ext_resource type="AudioStream" uid="uid://ddqclmfwcosev" path="res://Audio/Footsteps 1.wav" id="8_a04ky"]
 [ext_resource type="Script" path="res://Player/Air.gd" id="8_qoc35"]
+[ext_resource type="AudioStream" uid="uid://c7cft67uhlppr" path="res://Audio/Footsteps 2.wav" id="9_1jmx2"]
 [ext_resource type="Script" path="res://Player/StateDebugLabel.gd" id="9_fvye3"]
+[ext_resource type="AudioStream" uid="uid://dqqiyw4s2brjs" path="res://Audio/Footsteps 3.wav" id="10_ioaa7"]
+[ext_resource type="AudioStream" uid="uid://5s8wy0u21ypj" path="res://Audio/Dash.wav" id="11_62822"]
+[ext_resource type="AudioStream" uid="uid://dbd3r3jo8dn4l" path="res://Audio/Landing.wav" id="12_gjgs6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ds67"]
 cull_mode = 1
@@ -22,6 +28,7 @@ diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.406054, 0.257802, 0.123022, 1)
 roughness = 0.0
+backlight = Color(0, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_um25t"]
 cull_mode = 1
@@ -36,7 +43,7 @@ next_pass = SubResource("StandardMaterial3D_um25t")
 cull_mode = 2
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0.406054, 0.257802, 0.123022, 1)
+albedo_color = Color(0.407843, 0.258824, 0.121569, 1)
 roughness = 0.5
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5vl6t"]
@@ -3162,8 +3169,289 @@ states/Move/position = Vector2(331, 100)
 transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_1c7ok"), "Move", "Jump", SubResource("AnimationNodeStateMachineTransition_gyj8m"), "Jump", "Move", SubResource("AnimationNodeStateMachineTransition_4wkxo")]
 graph_offset = Vector2(5, -39)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvekg"]
+render_priority = 0
+shader = ExtResource("7_ifn5d")
+shader_parameter/_shield_color = Color(0.8, 0.521569, 0.254902, 1)
+shader_parameter/_shield_color_brightness = 10.0
+shader_parameter/_shield_intensity = 0.25
+shader_parameter/_rotation = Vector3(0, 0, 0)
+shader_parameter/_shield_size = 0.0
+shader_parameter/_shield_pulse_frequency = 1.0
+shader_parameter/_shield_pulse_density = 1.0
+shader_parameter/_shield_pulse_amplitude = 1.0
+shader_parameter/_shield_pulse_blend = 1.0
+shader_parameter/_shield_pulse_radius = 1.0
+shader_parameter/_impact_origin = Vector3(1, 0, 0)
+shader_parameter/_impact_frequency = 5.0
+shader_parameter/_impact_density = 5.0
+shader_parameter/_impact_amplitude = 6.0
+shader_parameter/_impact_blend = 0.0
+shader_parameter/_impact_radius = 1.1
+shader_parameter/_impact_anim = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fbr6w"]
+render_priority = 0
+shader = ExtResource("7_ifn5d")
+shader_parameter/_shield_color = Color(0.8, 0.521569, 0.254902, 1)
+shader_parameter/_shield_color_brightness = 10.0
+shader_parameter/_shield_intensity = 0.25
+shader_parameter/_rotation = Vector3(0, 0, 0)
+shader_parameter/_shield_size = 0.0
+shader_parameter/_shield_pulse_frequency = 1.0
+shader_parameter/_shield_pulse_density = 1.0
+shader_parameter/_shield_pulse_amplitude = 1.0
+shader_parameter/_shield_pulse_blend = 1.0
+shader_parameter/_shield_pulse_radius = 1.0
+shader_parameter/_impact_origin = Vector3(1, 0, 0)
+shader_parameter/_impact_frequency = 5.0
+shader_parameter/_impact_density = 5.0
+shader_parameter/_impact_amplitude = 6.0
+shader_parameter/_impact_blend = 0.0
+shader_parameter/_impact_radius = 1.1
+shader_parameter/_impact_anim = 0.0
+
+[sub_resource type="Animation" id="Animation_i4mb8"]
+resource_name = "DashVfx"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraController/SpringArm3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.34151, 1.93187, 1),
+"update": 0,
+"values": [75.0, 100.0, 75.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_0/material:next_pass")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_4ds67"), SubResource("ShaderMaterial_tvekg"), SubResource("StandardMaterial3D_4ds67")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_0/material:next_pass:shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ifn5d")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_1/material:next_pass")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_um25t"), SubResource("ShaderMaterial_fbr6w"), SubResource("StandardMaterial3D_um25t")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_1/material:next_pass:shader")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ifn5d")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Armature/Skeleton3D/Pants_002:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Armature:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.140978, 0.501391, 0.751474),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.01, 0.01, 0.01), Vector3(0.009, 0.009, 0.009), Vector3(0.01, 0.01, 0.01)]
+}
+
+[sub_resource type="Animation" id="Animation_kpewa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraController/SpringArm3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [75.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_0/material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.406054, 0.257802, 0.123022, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_1/material:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.407843, 0.258824, 0.121569, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_0/material:next_pass")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_4ds67")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_0/material:next_pass:shader")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ifn5d")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_1/material:next_pass")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_um25t")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Armature/Skeleton3D/Male_002:mesh:surface_1/material:next_pass:shader")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ifn5d")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Armature/Skeleton3D/Pants_002:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Armature:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.01, 0.01, 0.01)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aaex5"]
+_data = {
+"DashVfx": SubResource("Animation_i4mb8"),
+"RESET": SubResource("Animation_kpewa")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2a5ti"]
+streams_count = 3
+stream_0/stream = ExtResource("8_a04ky")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("9_1jmx2")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("10_ioaa7")
+stream_2/weight = 1.0
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_erlqp")
+fall_acceleration = 60
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, 0, 0, 0)
@@ -3626,6 +3914,7 @@ bones/64/rotation = Quaternion(-5.22705e-08, 2.45076e-07, -1.45126e-07, 1)
 bones/64/scale = Vector3(1, 1, 1)
 
 [node name="Male_002" type="MeshInstance3D" parent="Armature/Skeleton3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_5vl6t")
 skin = SubResource("Skin_qim14")
 
@@ -3688,3 +3977,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="VfxAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_aaex5")
+}
+
+[node name="Footsteps2" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_2a5ti")
+volume_db = -12.0
+pitch_scale = 1.22
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_a04ky")
+pitch_scale = 1.25
+
+[node name="Dash" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_62822")
+volume_db = -25.0
+pitch_scale = 2.0
+
+[node name="Land" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("12_gjgs6")
+volume_db = -15.0
+pitch_scale = 0.7

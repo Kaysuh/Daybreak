@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bru16d1xjt4bx"
+path="res://.godot/imported/ES_Wind Drone Desert.wav-7c2b9d02d62ffef3bd3f02de217151a1.sample"
+
+[deps]
+
+source_file="res://Audio/ES_Wind Drone Desert.wav"
+dest_files=["res://.godot/imported/ES_Wind Drone Desert.wav-7c2b9d02d62ffef3bd3f02de217151a1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
