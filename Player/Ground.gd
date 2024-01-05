@@ -26,5 +26,3 @@ func jump():
 	character.velocity.y = jump_force
 	next_state = air_state
 	playback.travel("Jump")
-	animation_tree["parameters/Jump/TimeScale/scale"] = 2
-

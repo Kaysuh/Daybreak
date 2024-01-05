@@ -1,0 +1,67 @@
+[gd_scene load_steps=13 format=3 uid="uid://dayyh6e8c063o"]
+
+[ext_resource type="Shader" uid="uid://4onafjvgli30" path="res://Player/lightning.tres" id="1_843yq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3g4s6"]
+render_priority = 0
+shader = ExtResource("1_843yq")
+shader_parameter/EffectColor = Color(1, 1, 1, 1)
+shader_parameter/TilingSize = Vector2(1, 5)
+shader_parameter/Vector2Parameter = Vector2(0.2, 0)
+shader_parameter/FloatParameter = 0.15
+
+[sub_resource type="Curve" id="Curve_rw6on"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.0208333, 360), 0.0, 0.0, 0, 0, Vector2(0.225, -249.231), 0.0, 0.0, 0, 0, Vector2(0.9875, -257.143), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1o405"]
+curve = SubResource("Curve_rw6on")
+
+[sub_resource type="Curve" id="Curve_2vp5a"]
+
+[sub_resource type="Curve" id="Curve_vu0xk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.525, 0.967033), 0.0, 0.0, 0, 0, Vector2(1, 0), -7.38462, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_5xy23"]
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_vimau"]
+curve_x = SubResource("Curve_2vp5a")
+curve_y = SubResource("Curve_vu0xk")
+curve_z = SubResource("Curve_5xy23")
+
+[sub_resource type="Curve" id="Curve_csrii"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.241667, 0.824176), 0.338123, 0.338123, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gb1yh"]
+curve = SubResource("Curve_csrii")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rwwtd"]
+angular_velocity_min = 1.0
+angular_velocity_max = 1.0
+angular_velocity_curve = SubResource("CurveTexture_1o405")
+directional_velocity_min = 0.1
+directional_velocity_max = 0.1
+directional_velocity_curve = SubResource("CurveXYZTexture_vimau")
+gravity = Vector3(0, 0, 0)
+scale_min = 2.7
+scale_max = 2.7
+scale_curve = SubResource("CurveTexture_gb1yh")
+collision_use_scale = true
+
+[sub_resource type="TorusMesh" id="TorusMesh_7tjre"]
+inner_radius = 0.125
+outer_radius = 0.5
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_3g4s6")
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_rwwtd")
+draw_pass_1 = SubResource("TorusMesh_7tjre")
