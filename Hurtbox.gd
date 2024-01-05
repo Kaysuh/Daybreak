@@ -14,4 +14,4 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 	var impact_point :=  hitbox.global_position - global_position
 	var force := -impact_point
 	if owner.has_method("take_damage"):
-		owner.take_damage(hitbox.damage, force * 50)
+		owner.take_damage(hitbox.damage, force * 5)
